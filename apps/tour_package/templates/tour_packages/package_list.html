@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Packages</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Tour Packages</h1>
+
+        <!-- Check if there are any packages -->
+        {% if packages %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Package Name</th>
+                        <th>Company</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Duration (Days)</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Tour Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for package in packages %}
+                        <tr>
+                            <td>{{ package.package_name }}</td>
+                            <td>{{ package.company }}</td>
+                            <td>{{ package.date }}</td>
+                            <td>{{ package.description }}</td>
+                            <td>{{ package.amount }}</td>
+                            <td>{{ package.duration }}</td>
+                            <td>{{ package.country }}</td>
+                            <td>{{ package.city }}</td>
+                            <td>{{ package.tour_type }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No tour packages available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

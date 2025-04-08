@@ -47,20 +47,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user_login',
-    'tourism_company',
-    'tour_package',
-    'Guides',
-    'hotelbooking',
-    'bookings',
-    'reviews',
-    'Payments',
-    'social_community',
-    'expense_tracker',
-    'travel_stories',
-    'maps',
-
-]
+    'apps.user_login',
+    'apps.tourism_company',
+    'apps.tour_package',
+    'apps.Guides',
+    'apps.hotelbooking',
+    'apps.bookings',
+    'apps.reviews',
+    'apps.Payments',
+    'apps.social_community',
+    'apps.expense_tracker',
+    'apps.maps',
+    'apps.social_stories',
+]   
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # MySQL database engine
         'NAME': 'travel',  # Change this to your actual DB name
         'USER': 'root',  # Your MySQL username
-        'PASSWORD': 'root',  # Your MySQL password
+        'PASSWORD': 'raftaar@5347',  # Your MySQL password
         'HOST': 'localhost',  # Keep as 'localhost' if running MySQL locally
         'PORT': '3306',  # Default MySQL port
     }

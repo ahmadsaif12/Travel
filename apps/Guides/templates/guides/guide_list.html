@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides List</title>
+    <style>
+        /* Your existing styles remain here... */
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+    <!-- Include Google Maps API (replace YOUR_API_KEY with your actual key) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            var location = { lat: {{ guide.latitude|default:0 }}, lng: {{ guide.longitude|default:0 }} };  // Use default values in case lat/lng is not available
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: location
+            });
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "{{ guide.name }}'s Location"
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Guides List</h1>
+        
+        <!-- Display guides if available, else show a no guides message -->
+        {% if guides %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Guide ID</th>
+                    <th>Name</th>
+                    <th>Experience</th>
+                    <th>Expertise</th>
+                    <th>Languages</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for guide in guides %}
+                <tr>
+                    <td>{{ guide.guide_id }}</td>
+                    <td>{{ guide.name }}</td>
+                    <td>{{ guide.experience }} years</td>
+                    <td>{{ guide.expertise }}</td>
+                    <td>{{ guide.language }}</td>
+                </tr>     
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>No guides found.</p>
+        {% endif %}
+
+        {% if guides %}
+        <!-- Display map if guide has latitude/longitude -->
+        {% for guide in guides %}
+            {% if guide.latitude and guide.longitude %}
+                <div id="map"></div>
+                <script>initMap();</script>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        
+        {% if user_role == "Admin" %}
+            <div class="add-new-guide">
+                <a href="{% url 'Guides:guide_create' %}">Add New Guide</a>
+                <a href="{% url 'user_login:admin-dashboard' %}">Back</a>
+            </div>
+        {% else %}
+            <a href="{% url 'user_dashboard' %}">Back</a>
+        {% endif %}
+        
+    </div>
+</body>
+</html>
